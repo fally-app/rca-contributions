@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //server routing
-require("./routes/s_admin.router.js")(app);
+require("./routes/user.router.js")(app);
 
 // Configuring the database
 const dbConfig = require("./mongodb/index.js");
@@ -38,7 +38,7 @@ mongoose
 
 // define a simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to SMS system" });
+  res.json({ message: "Welcome to Members system" });
 });
 
 // listen for requests
