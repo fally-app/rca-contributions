@@ -1,10 +1,11 @@
 const Users = require("../model/user.model");
+const Joi = require("joi");
 
 // validator
 const schema = Joi.object().keys({
-  fname: Joi.string().min(5).max(30).required(),
-  lname: Joi.string().min(5).max(30).required(),
-  gender: Joi.string().min(6).max(30).required(),
+  fname: Joi.string().min(3).max(30).required(),
+  lname: Joi.string().min(3).max(30).required(),
+  gender: Joi.string().min(4).max(6).required(),
 });
 /**
  * Create and Save a new Users

@@ -1,5 +1,5 @@
 module.exports = (app) => {
-  const members = require("../controllers/members.controller.js");
+  const members = require("../controller/user.controller.js");
 
   // Create a new members
   app.post("/members", members.create);
@@ -15,7 +15,4 @@ module.exports = (app) => {
 
   // Delete a members by id
   app.delete("/members/:id", members.delete);
-
-  //Login admin
-  app.post("/members/login", members.login);
 };
