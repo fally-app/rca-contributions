@@ -52,7 +52,7 @@
 </template>
 
 <script>
-import TutorialDataService from "../services/TutorialDataService";
+import MemberDataService from "../services/MemberDataService";
 export default {
   name: "tutorials-list",
   data() {
@@ -70,7 +70,7 @@ export default {
   },
   methods: {
     retrieveTutorials() {
-      TutorialDataService.getAll()
+      MemberDataService.getAll()
         .then((response) => {
           this.tutorials = response.data.map(this.getDisplayTutorial);
           console.log(response.data);
@@ -85,7 +85,7 @@ export default {
     },
 
     removeAllTutorials() {
-      TutorialDataService.deleteAll()
+      MemberDataService.deleteAll()
         .then((response) => {
           console.log(response.data);
           this.refreshList();
@@ -96,7 +96,7 @@ export default {
     },
 
     searchTitle() {
-      TutorialDataService.findByTitle(this.title)
+      MemberDataService.findByTitle(this.title)
         .then((response) => {
           this.tutorials = response.data.map(this.getDisplayTutorial);
           console.log(response.data);
@@ -111,7 +111,7 @@ export default {
     },
 
     deleteTutorial(id) {
-      TutorialDataService.delete(id)
+      MemberDataService.delete(id)
         .then(() => {
           this.refreshList();
         })

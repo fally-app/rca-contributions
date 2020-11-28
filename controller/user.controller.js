@@ -13,6 +13,7 @@ const schema = Joi.object().keys({
  * @param {*} res response
  */
 exports.create = async (req, res) => {
+  console.log(req.body);
   var user = await Users.findOne({
     fname: req.body.fname,
     lname: req.body.lname,
@@ -23,10 +24,12 @@ exports.create = async (req, res) => {
   }
   //Admin validation
   const validator = schema.validate(req.body);
-  if (validator.error)
+  if (validator.error) {
+    console.log(validator.error.details[0].message);
     return res.status(200).send({
       message: validator.error.details[0].message,
     });
+  }
 
   const create_one = new Users({
     fname: req.body.fname,
@@ -40,6 +43,7 @@ exports.create = async (req, res) => {
       res.send(data);
     })
     .catch((err) => {
+      console.log("error occurred while creating the user");
       res.status(500).send({
         message: err.message || "Some error occurred while creating the user.",
       });
