@@ -15,6 +15,7 @@ app.use(bodyParser.json());
 //server routing
 require("./routes/user.router.js")(app);
 require("./routes/c_type.router.js")(app);
+require("./routes/contribution.router.js")(app);
 
 // Configuring the database
 const dbConfig = require("./mongodb/index.js");

@@ -1,4 +1,4 @@
-const Contributions = require("../model/contibution.model");
+const Contributions = require("../model/contribution.model");
 const Joi = require("joi");
 
 // validator
