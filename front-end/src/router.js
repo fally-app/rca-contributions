@@ -10,17 +10,17 @@ export default new Router({
       path: "/",
       alias: "/members",
       name: "members",
-      component: () => import("./components/MembersList"),
+      component: () => import("./components/TutorialsList"),
     },
     {
-      path: "/members/:id",
-      name: "member-details",
-      component: () => import("./components/Member"),
+      path: "/tutorials/:id",
+      name: "tutorial-details",
+      component: () => import("./components/Tutorial"),
     },
     {
-      path: "members/add",
+      path: "/add",
       name: "add",
-      component: () => import("./components/AddMember"),
+      component: () => import("./components/AddTutorial"),
     },
   ],
 });

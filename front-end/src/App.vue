@@ -2,14 +2,14 @@
   <v-app>
     <v-app-bar app dark>
       <div class="d-flex align-center mr-2">
-        bezKoder
+        Didien Cheetah
       </div>
 
-      <v-btn to="/tutorials" text>
-        Tutorials
+      <v-btn to="/members" text>
+        Members
       </v-btn>
 
-      <v-btn to="/add" text>
+      <v-btn to="members/add" text>
         Add
       </v-btn>
     </v-app-bar>
