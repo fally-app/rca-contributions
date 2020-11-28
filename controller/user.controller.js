@@ -1,6 +1,4 @@
 const Users = require("../model/user.model");
-const Joi = require("joi");
-const { jwt } = require("../utils/auth.jwt");
 
 // validator
 const schema = Joi.object().keys({
