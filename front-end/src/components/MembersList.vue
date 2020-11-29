@@ -1,23 +1,23 @@
 <template>
   <v-row align="center" class="list px-3 mx-auto">
-    <v-col cols="12" md="8">
-      <v-text-field v-model="fname" label="Search by Name"></v-text-field>
-    </v-col>
-
-    <v-col cols="12" md="4">
-      <v-btn small @click="searchName">
-        Search
-      </v-btn>
-    </v-col>
-
     <v-col cols="12" sm="12">
       <v-card class="mx-auto" tile>
-        <v-card-title>Members</v-card-title>
+        <v-card-title>
+        Members
+        <v-spacer></v-spacer>
+        <v-text-field
+          v-model="search"
+          append-icon="mdi-magnify"
+          label="Search"
+          single-line
+          hide-details
+        ></v-text-field>
+      </v-card-title>
 <v-data-table
       :headers="headers"
-      :items="members"
-      :items-per-page="5"
-      class="elevation-1"
+        :items="members"
+        :search="search"
+      
     >
     <template v-slot:[`item.actions`]="{ item }">
             <v-icon small class="mr-2" @click="editMember(item.id)"
@@ -58,7 +58,7 @@ export default {
     return {
       members: [],
       fname: "",
-      calories: "",
+     search: "",
       headers: [
         { text: "Fname", align: "start", sortable: true, value: "fname" },
         { text: "Lname", value: "lname", sortable: true },
