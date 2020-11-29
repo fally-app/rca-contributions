@@ -108,7 +108,7 @@ export default {
     // },
 
     updateMember() {
-      MemberDataService.update(this.currentMember._id, this.currentMember)
+      MemberDataService.update(this.currentMember._id, {"fname":this.currentMember.fname,"lname":this.currentMember.lname,"gender":this.currentMember.gender})
         .then((response) => {
           console.log(response.data);
           this.message = "The Member was updated successfully!";

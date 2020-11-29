@@ -13,8 +13,20 @@
     <v-col cols="12" sm="12">
       <v-card class="mx-auto" tile>
         <v-card-title>Members</v-card-title>
-
-        <v-data-table
+<v-data-table
+      :headers="headers"
+      :items="members"
+      :items-per-page="5"
+      class="elevation-1"
+    >
+    <template v-slot:[`item.actions`]="{ item }">
+            <v-icon small class="mr-2" @click="editMember(item.id)"
+              >mdi-pencil</v-icon
+            >
+            <v-icon small @click="deleteMember(item.id)">mdi-delete</v-icon>
+    </template>
+    </v-data-table>
+        <!-- <v-data-table
           :headers="headers"
           :items="members"
           disable-pagination
@@ -26,20 +38,7 @@
             >
             <v-icon small @click="deleteMember(item.id)">mdi-delete</v-icon>
           </template>
-          <!-- <template v-slot:body.append>
-            <tr>
-              <td></td>
-              <td>
-                <v-text-field
-                  v-model="calories"
-                  type="number"
-                  label="Less than"
-                ></v-text-field>
-              </td>
-              <td colspan="4"></td>
-            </tr>
-          </template> -->
-        </v-data-table>
+        </v-data-table> -->
 
         <v-card-actions v-if="members.length > 0">
           <v-btn small color="error" @click="removeAllMembers">
