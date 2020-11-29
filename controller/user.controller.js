@@ -20,7 +20,7 @@ exports.create = async (req, res) => {
     gender: req.body.gender,
   });
   if (user) {
-    return res.send("User exists").status(202);
+    return res.send("User exists").status(400);
   }
   //Admin validation
   const validator = schema.validate(req.body);

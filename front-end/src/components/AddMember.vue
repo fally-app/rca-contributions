@@ -17,13 +17,19 @@
           label="Last name"
           required
         ></v-text-field>
-
+<!-- 
         <v-text-field
           v-model="member.gender"
           :rules="[(v) => !!v || 'Gender is required']"
           label="Gender"
           required
-        ></v-text-field>
+        ></v-text-field> -->
+
+         <v-select
+        v-model="member.gender"
+        :items="selects"
+        label="Gender"
+      ></v-select>
       </v-form>
 
       <v-btn color="primary" class="mt-3" @click="saveMember">Submit</v-btn>
@@ -61,6 +67,7 @@ export default {
         gender: "",
       },
       submitted: false,
+      selects: ['Male','Female']
     };
   },
   methods: {

@@ -17,12 +17,17 @@
         required
       ></v-text-field>
 
-      <v-text-field
+      <!-- <v-text-field
         v-model="currentMember.gender"
         :rules="[(v) => !!v || 'Gender is required']"
         label="Gender"
         required
-      ></v-text-field>
+      ></v-text-field> -->
+      <v-select
+        v-model="currentMember.gender"
+        :items="selects"
+        label="Gender"
+      ></v-select>
 
       <!-- <label><strong>Status:</strong></label>
       {{ currentTutorial.published ? "Published" : "Pending" }} -->
@@ -75,6 +80,7 @@ export default {
     return {
       currentMember: null,
       message: "",
+      selects: ['Male','Female']
     };
   },
   methods: {
