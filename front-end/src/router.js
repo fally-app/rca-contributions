@@ -14,7 +14,7 @@ export default new Router({
     },
     {
       path: "/members/:id",
-      name: "members-details",
+      name: "member-details",
       component: () => import("./components/Member"),
     },
     {

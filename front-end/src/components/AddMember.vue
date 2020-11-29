@@ -26,7 +26,7 @@
         ></v-text-field>
       </v-form>
 
-      <v-btn color="primary" class="mt-3" @click="savemember">Submit</v-btn>
+      <v-btn color="primary" class="mt-3" @click="saveMember">Submit</v-btn>
     </div>
 
     <div v-else>
@@ -40,7 +40,7 @@
         </v-card-subtitle>
 
         <v-card-actions>
-          <v-btn color="success" @click="newmember">Add</v-btn>
+          <v-btn color="success" @click="newMember">Add</v-btn>
         </v-card-actions>
       </v-card>
     </div>
@@ -64,7 +64,7 @@ export default {
     };
   },
   methods: {
-    savemember() {
+    saveMember() {
       var data = {
         fname: this.member.fname,
         lname: this.member.lname,
@@ -82,7 +82,7 @@ export default {
         });
     },
 
-    newmember() {
+    newMember() {
       this.submitted = false;
       this.member = {};
     },

@@ -13,7 +13,7 @@ const Schema = mongoose.Schema(
     gender: {
       type: String,
       required: true,
-      enum: ["MALE", "FEMALE", "OTHER"],
+      enum: ["Male", "Female"],
     },
   },
   {

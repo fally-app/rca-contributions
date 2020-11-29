@@ -70,18 +70,18 @@
 import MemberDataService from "../services/MemberDataService";
 
 export default {
-  name: "tutorial",
+  name: "member",
   data() {
     return {
-      currentTutorial: null,
+      currentMember: null,
       message: "",
     };
   },
   methods: {
-    getTutorial(id) {
+    getMember(id) {
       MemberDataService.get(id)
         .then((response) => {
-          this.currentTutorial = response.data;
+          this.currentMember = response.data;
           console.log(response.data);
         })
         .catch((e) => {
@@ -89,40 +89,40 @@ export default {
         });
     },
 
-    updatePublished(status) {
-      var data = {
-        id: this.currentTutorial.id,
-        title: this.currentTutorial.title,
-        description: this.currentTutorial.description,
-        published: status,
-      };
+    // updatePublished(status) {
+    //   var data = {
+    //     id: this.currentMember.id,
+    //     title: this.currentMember.title,
+    //     description: this.currentMember.description,
+    //     published: status,
+    //   };
 
-      MemberDataService.update(this.currentTutorial.id, data)
+    //   MemberDataService.update(this.currentTutorial.id, data)
+    //     .then((response) => {
+    //       this.currentTutorial.published = status;
+    //       console.log(response.data);
+    //     })
+    //     .catch((e) => {
+    //       console.log(e);
+    //     });
+    // },
+
+    updateMember() {
+      MemberDataService.update(this.currentMember._id, this.currentMember)
         .then((response) => {
-          this.currentTutorial.published = status;
           console.log(response.data);
+          this.message = "The Member was updated successfully!";
         })
         .catch((e) => {
           console.log(e);
         });
     },
 
-    updateTutorial() {
-      MemberDataService.update(this.currentTutorial.id, this.currentTutorial)
+    deleteMember() {
+      MemberDataService.delete(this.currentMember._id)
         .then((response) => {
           console.log(response.data);
-          this.message = "The tutorial was updated successfully!";
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    },
-
-    deleteTutorial() {
-      MemberDataService.delete(this.currentTutorial.id)
-        .then((response) => {
-          console.log(response.data);
-          this.$router.push({ name: "tutorials" });
+          this.$router.push({ name: "members" });
         })
         .catch((e) => {
           console.log(e);
@@ -131,7 +131,7 @@ export default {
   },
   mounted() {
     this.message = "";
-    this.getTutorial(this.$route.params.id);
+    this.getMember(this.$route.params.id);
   },
 };
 </script>
