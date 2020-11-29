@@ -9,7 +9,7 @@
         Members
       </v-btn>
 
-      <v-btn to="/add" text>
+      <v-btn to="members/add" text>
         Add
       </v-btn>
     </v-app-bar>
