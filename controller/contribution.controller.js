@@ -1,5 +1,7 @@
 const Contributions = require("../model/contribution.model");
 const Joi = require("joi");
+const contributionModel = require("../model/contribution.model");
+const { Mongoose } = require("mongoose");
 
 // validator
 const schema = Joi.object().keys({
@@ -53,6 +55,15 @@ exports.findAll = (req, res) => {
     });
 };
 
+exports.Populated = (req, res) => {
+  Contributions.findOne({
+    amount: 400,
+  })
+    .populate("Member")
+    .exec((err, locations) => {
+      res.send(locations);
+    });
+};
 // Find a single contibution with a id
 exports.findOne = (req, res) => {
   Contributions.findById(req.params.id)

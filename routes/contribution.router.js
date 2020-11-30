@@ -6,6 +6,7 @@ module.exports = (app) => {
 
   // Retrieve all contributions
   app.get("/contributions", contribution.findAll);
+  app.get("/contributions/many", contribution.Populated);
 
   // Retrieve a single contribution by id
   app.get("/contributions/:id", contribution.findOne);
