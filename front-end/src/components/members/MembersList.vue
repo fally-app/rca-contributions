@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import MemberDataService from "../services/MemberDataService";
+import MemberDataService from "../../services/MemberDataService";
 export default {
   name: "members-list",
   data() {

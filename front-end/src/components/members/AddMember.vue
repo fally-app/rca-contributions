@@ -17,13 +17,6 @@
           label="Last name"
           required
         ></v-text-field>
-<!-- 
-        <v-text-field
-          v-model="member.gender"
-          :rules="[(v) => !!v || 'Gender is required']"
-          label="Gender"
-          required
-        ></v-text-field> -->
 
          <v-select
         v-model="member.gender"
@@ -54,7 +47,7 @@
 </template>
 
 <script>
-import MemberDataService from "../services/MemberDataService";
+import MemberDataService from "../../services/MemberDataService";
 
 export default {
   name: "add-member",
