@@ -20,12 +20,6 @@ class ContributionDataService {
   delete(id) {
     return http.delete(`/contributions/${id}`);
   }
-  idToPrimary(data) {
-    data.forEach((dname) => {
-      dname.member_id = http.get(`/members/${dname.member_id}`).fname;
-    });
-    return data;
-  }
 
   // deleteAll() {
   //   return http.delete(`/members`);
