@@ -1,45 +1,35 @@
 <template>
   <div class="submit-form mt-3 mx-auto">
-    <p class="headline">Add member</p>
+    <p class="headline">Add New Type</p>
 
     <div v-if="!submitted">
       <v-form ref="form" lazy-validation>
         <v-text-field
-          v-model="member.fname"
-          :rules="[(v) => !!v || 'First name is required']"
-          label="First name"
+          v-model="type.title"
+          :rules="[(v) => !!v || 'Title is required']"
+          label="Title"
           required
         ></v-text-field>
 
         <v-text-field
-          v-model="member.lname"
-          :rules="[(v) => !!v || 'Last name is required']"
-          label="Last name"
+          v-model="type.description"
+          :rules="[(v) => !!v || 'Description is required']"
+          label="Description"
           required
         ></v-text-field>
-
-         <v-select
-        v-model="member.gender"
-        :items="selects"
-        label="Gender"
-      ></v-select>
       </v-form>
 
-      <v-btn color="primary" class="mt-3" @click="saveMember">Submit</v-btn>
+      <v-btn color="primary" class="mt-3" @click="saveType">Submit</v-btn>
     </div>
 
     <div v-else>
       <v-card class="mx-auto">
-        <v-card-title>
-          Submitted successfully!
-        </v-card-title>
+        <v-card-title> Submitted successfully! </v-card-title>
 
-        <v-card-subtitle>
-          Click the button to add new member.
-        </v-card-subtitle>
+        <v-card-subtitle> Click the button to add new member. </v-card-subtitle>
 
         <v-card-actions>
-          <v-btn color="success" @click="newMember">Add</v-btn>
+          <v-btn color="success" @click="newType">Add</v-btn>
         </v-card-actions>
       </v-card>
     </div>
@@ -47,33 +37,30 @@
 </template>
 
 <script>
-import MemberDataService from "../../services/MemberDataService";
+import TypeDataService from "../../services/TypeDataService";
 
 export default {
   name: "add-member",
   data() {
     return {
-      member: {
+      type: {
         id: "",
-        fname: "",
-        lname: "",
-        gender: "",
+        title: "",
+        description: "",
       },
       submitted: false,
-      selects: ['Male','Female']
     };
   },
   methods: {
-    saveMember() {
+    saveType() {
       var data = {
-        fname: this.member.fname,
-        lname: this.member.lname,
-        gender: this.member.gender,
+        title: this.type.title,
+        simple_description: this.type.description,
       };
 
-      MemberDataService.create(data)
+      TypeDataService.create(data)
         .then((response) => {
-          this.member.id = response.data.id;
+          this.type.id = response.data.id;
           console.log(response.data);
           this.submitted = true;
         })
@@ -84,7 +71,7 @@ export default {
 
     newMember() {
       this.submitted = false;
-      this.member = {};
+      this.type = {};
     },
   },
 };
