@@ -33,6 +33,11 @@ export default new Router({
       component: () => import("./components/contributions/AddContribution"),
     },
     {
+      path: "/contributions/:id",
+      name: "contribution_details",
+      component: () => import("./components/contributions/Contribution"),
+    },
+    {
       path: "/types",
       name: "types",
       component: () => import("./components/types/Types"),
@@ -43,9 +48,14 @@ export default new Router({
       component: () => import("./components/types/AddType"),
     },
     {
-      path: "/edittype",
-      name: "addtype",
+      path: "/types/:id",
+      name: "type_details",
       component: () => import("./components/types/Type"),
     },
+    // {
+    //   path: "/edittype",
+    //   name: "edittype",
+    //   component: () => import("./components/types/Type"),
+    // },
   ],
 });

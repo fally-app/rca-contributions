@@ -3,29 +3,24 @@
     <v-col cols="12" sm="12">
       <v-card class="mx-auto" tile>
         <v-card-title>
-        Members
-        <v-spacer></v-spacer>
-        <v-text-field
-          v-model="search"
-          append-icon="mdi-magnify"
-          label="Search"
-          single-line
-          hide-details
-        ></v-text-field>
-      </v-card-title>
-<v-data-table
-      :headers="headers"
-        :items="members"
-        :search="search"
-      
-    >
-    <template v-slot:[`item.actions`]="{ item }">
+          Members
+          <v-spacer></v-spacer>
+          <v-text-field
+            v-model="search"
+            append-icon="mdi-magnify"
+            label="Search"
+            single-line
+            hide-details
+          ></v-text-field>
+        </v-card-title>
+        <v-data-table :headers="headers" :items="members" :search="search">
+          <template v-slot:[`item.actions`]="{ item }">
             <v-icon small class="mr-2" @click="editMember(item.id)"
               >mdi-pencil</v-icon
             >
             <v-icon small @click="deleteMember(item.id)">mdi-delete</v-icon>
-    </template>
-    </v-data-table>
+          </template>
+        </v-data-table>
         <!-- <v-data-table
           :headers="headers"
           :items="members"
@@ -58,7 +53,7 @@ export default {
     return {
       members: [],
       fname: "",
-     search: "",
+      search: "",
       headers: [
         { text: "Fname", align: "start", sortable: true, value: "fname" },
         { text: "Lname", value: "lname", sortable: true },
@@ -130,13 +125,11 @@ export default {
           member.lname.length > 30
             ? member.lname.substr(0, 30) + "..."
             : member.lname,
-        
+
         gender:
           member.gender.length > 30
             ? member.gender.substr(0, 30) + "..."
             : member.gender,
-        
-      
       };
     },
   },

@@ -112,7 +112,7 @@ export default {
     },
 
     editContribution(id) {
-      this.$router.push({ name: "contributions", params: { id: id } });
+      this.$router.push({ name: "contribution_details", params: { id: id } });
     },
 
     deleteContribution(id) {

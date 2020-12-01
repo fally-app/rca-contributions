@@ -1,17 +1,17 @@
 <template>
-  <div v-if="currentMember" class="edit-form py-3">
+  <div v-if="currentContribution" class="edit-form py-3">
     <p class="headline">Edit Contribution</p>
 
     <v-form ref="form" lazy-validation>
       <v-text-field
-        v-model="currentContribution.member_id"
+        v-model="currentContribution.member.lname"
         :rules="[(v) => !!v || 'Member Id is required']"
         label="Member Id"
         required
       ></v-text-field>
 
       <v-text-field
-        v-model="currentContribution.c_type_id"
+        v-model="currentContribution.types.title"
         :rules="[(v) => !!v || 'Type is required']"
         label="Type"
         required
@@ -29,7 +29,7 @@
         label="Date"
         required
       ></v-text-field> -->
-      <label for="meeting-time">Choose a time for your appointment:</label>
+      <label for="meeting-time">Date</label>
 
       <input
         type="datetime-local"
@@ -124,11 +124,11 @@ export default {
         });
     },
 
-    deleteContibution() {
-      ContibutionDataService.delete(this.currentContibution._id)
+    deleteContribution() {
+      ContributionDataService.delete(this.currentContribution._id)
         .then((response) => {
           console.log(response.data);
-          this.$router.push({ name: "contibutions" });
+          this.$router.push({ name: "Contributions" });
         })
         .catch((e) => {
           console.log(e);
@@ -137,7 +137,7 @@ export default {
   },
   mounted() {
     this.message = "";
-    this.getContibution(this.$route.params.id);
+    this.getContribution(this.$route.params.id);
   },
 };
 </script>

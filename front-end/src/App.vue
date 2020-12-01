@@ -27,7 +27,7 @@
             <ul class="collapse list-unstyled" id="homeSubmenu">
               <router-link to="/members"><li>Members List</li></router-link>
               <router-link to="/add"><li>Add Member</li></router-link>
-              <li><a>Edit Member</a></li>
+              <router-link to="/editmember"><li>Edit Member</li></router-link>
             </ul>
           </li>
           <li>
@@ -53,7 +53,9 @@
               <router-link to="/addcontribution"
                 ><li>Add Contribution</li></router-link
               >
-              <li><a href="#">Edit Contribution</a></li>
+              <router-link to="/editcontribution"
+                ><li>Edit Contribution</li></router-link
+              >
             </ul>
           </li>
           <li>
