@@ -1,12 +1,12 @@
 module.exports = (app) => {
   const contribution = require("../controller/contribution.controller.js");
+  const test = require("../controller/test");
 
   // Create a new contribution
   app.post("/contributions", contribution.create);
 
   // Retrieve all contributions
   app.get("/contributions", contribution.findAll);
-  app.get("/contributions/many", contribution.Populated);
 
   // Retrieve a single contribution by id
   app.get("/contributions/:id", contribution.findOne);

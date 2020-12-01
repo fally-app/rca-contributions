@@ -27,5 +27,10 @@ export default new Router({
       name: "contributions",
       component: () => import("./components/contributions/Contributions"),
     },
+    {
+      path: "/addcontribution",
+      name: "addcontribution",
+      component: () => import("./components/contributions/AddContribution"),
+    },
   ],
 });

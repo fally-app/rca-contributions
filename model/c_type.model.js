@@ -1,13 +1,14 @@
 const mongoose = require("mongoose");
-
-const Schema = mongoose.Schema(
+const Schema = mongoose.Schema;
+const Types = Schema.Types;
+const TypeSchema = new Schema(
   {
     title: {
-      type: String,
+      type: Types.String,
       required: true,
     },
     simple_description: {
-      type: String,
+      type: Types.String,
       required: true,
     },
   },
@@ -16,4 +17,4 @@ const Schema = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("C_Type", Schema);
+module.exports = mongoose.model("C_Type", TypeSchema, "c_types");

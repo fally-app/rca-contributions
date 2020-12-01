@@ -44,6 +44,8 @@ exports.create = async (req, res) => {
 // Retrieve and return all contibution from the database.
 exports.findAll = (req, res) => {
   Contributions.find()
+    .populate("member")
+    .populate("types")
     .then((contibutions) => {
       res.send(contibutions);
     })
@@ -55,18 +57,11 @@ exports.findAll = (req, res) => {
     });
 };
 
-exports.Populated = (req, res) => {
-  Contributions.findOne({
-    amount: 400,
-  })
-    .populate("Member")
-    .exec((err, locations) => {
-      res.send(locations);
-    });
-};
 // Find a single contibution with a id
 exports.findOne = (req, res) => {
   Contributions.findById(req.params.id)
+    .populate("member")
+    .populate("types")
     .then((contibution) => {
       if (!contibution) {
         return res.status(404).send({

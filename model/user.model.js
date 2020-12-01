@@ -1,17 +1,18 @@
 const mongoose = require("mongoose");
-
-const Schema = mongoose.Schema(
+const Schema = mongoose.Schema;
+const Types = Schema.Types;
+const UserSchema = new Schema(
   {
     fname: {
-      type: String,
+      type: Types.String,
       required: true,
     },
     lname: {
-      type: String,
+      type: Types.String,
       required: true,
     },
     gender: {
-      type: String,
+      type: Types.String,
       required: true,
       enum: ["Male", "Female"],
     },
@@ -21,4 +22,4 @@ const Schema = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Member", Schema);
+module.exports = mongoose.model("Member", UserSchema, "members");
