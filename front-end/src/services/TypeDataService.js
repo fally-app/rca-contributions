@@ -1,33 +1,33 @@
 import http from "../http-common";
 
-class MemberDataService {
+class TypeDataService {
   getAll() {
-    return http.get("/members");
+    return http.get("/types");
   }
 
   get(id) {
-    return http.get(`/members/${id}`);
+    return http.get(`/types/${id}`);
   }
 
   create(data) {
-    return http.post("/members", data);
+    return http.post("/types", data);
   }
 
   update(id, data) {
-    return http.put(`/members/${id}`, data);
+    return http.put(`/types/${id}`, data);
   }
 
   delete(id) {
-    return http.delete(`/members/${id}`);
+    return http.delete(`/types/${id}`);
   }
 
   // deleteAll() {
-  //   return http.delete(`/members`);
+  //   return http.delete(`/types`);
   // }
 
   // findByTitle(title) {
-  //   return http.get(`/members?title=${title}`);
+  //   return http.get(`/types?title=${title}`);
   // }
 }
 
-export default new MemberDataService();
+export default new TypeDataService();
