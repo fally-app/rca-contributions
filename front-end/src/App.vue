@@ -31,7 +31,7 @@
             </ul>
           </li>
           <li>
-            <a href="#">Contributions</a>
+            <!-- <a href="#">Contributions</a> -->
             <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
               >Types</a
             >
