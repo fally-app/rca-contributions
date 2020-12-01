@@ -4,19 +4,21 @@
 
     <div v-if="!submitted">
       <v-form ref="form" lazy-validation>
-        <v-text-field
+        <v-select
           v-model="contribution.member_id"
-          :rules="[(v) => !!v || 'Member is required']"
+          :items="members"
+          item-value="id"
+          item-text="fname"
           label="Member"
-          required
-        ></v-text-field>
+        ></v-select>
 
-        <v-text-field
+        <v-select
           v-model="contribution.c_type_id"
-          :rules="[(v) => !!v || 'Type is required']"
+          :items="types"
+          item-value="_id"
+          item-text="title"
           label="Type"
-          required
-        ></v-text-field>
+        ></v-select>
         <v-text-field
           v-model="contribution.amount"
           :rules="[(v) => !!v || 'Amount is required']"
@@ -49,12 +51,6 @@
             :min="minDate"
           ></v-date-picker>
         </v-menu>
-
-        <v-select
-          v-model="contribution.member_id"
-          :items="members"
-          label="Member"
-        ></v-select>
       </v-form>
 
       <v-btn color="primary" class="mt-3" @click="saveContribution"
@@ -79,18 +75,29 @@
 <script>
 import ContributionDataService from "../../services/ContributionDataService";
 import MemberDataService from "../../services/MemberDataService";
+import TypeDataService from "../../services/TypeDataService";
 
 export default {
   name: "add-contribution",
   data() {
     return {
       contribution: {
-        id: "",
         member_id: "",
         c_type_id: "",
         amount: "",
       },
       members: [],
+      // input: {
+      //   user_id: "",
+      // },
+      users: [],
+      member: {
+        id: "",
+      },
+      types: [],
+      type: {
+        _id: "",
+      },
       submitted: false,
       fromDateMenu: false,
       fromDateVal: null,
@@ -106,6 +113,7 @@ export default {
   },
   methods: {
     saveContribution() {
+      console.log(this.contribution.member_id);
       var data = {
         member_id: this.contribution.member_id,
         c_type_id: this.contribution.c_type_id,
@@ -132,16 +140,39 @@ export default {
         .then((response) => {
           const returns = response.data;
           returns.forEach((element) => {
-            this.members.push(element.fname);
+            let values = {
+              fname: element.lname,
+              id: element._id,
+            };
+            this.members.push(values);
           });
         })
         .catch((e) => {
           console.log(e);
         });
     },
+    retrieveTypes() {
+      TypeDataService.getAll()
+        .then((response) => {
+          const returns = response.data;
+          returns.forEach((element) => {
+            let values = {
+              _id: element._id,
+              title: element.title,
+            };
+            this.types.push(values);
+          });
+          console.log(this.types);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
   },
+
   mounted() {
     this.retrieveMembers();
+    this.retrieveTypes();
   },
 };
 </script>

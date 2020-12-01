@@ -42,5 +42,10 @@ export default new Router({
       name: "addtype",
       component: () => import("./components/types/AddType"),
     },
+    {
+      path: "/edittype",
+      name: "addtype",
+      component: () => import("./components/types/Type"),
+    },
   ],
 });

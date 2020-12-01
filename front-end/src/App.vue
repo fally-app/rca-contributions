@@ -38,7 +38,7 @@
             <ul class="collapse list-unstyled" id="pageSubmenu">
               <router-link to="/types"><li>Types List</li></router-link>
               <router-link to="/addtype"><li>Add Type</li></router-link>
-              <li><a href="#">Edit Type</a></li>
+              <router-link to="/edittype"><li>Edit</li></router-link>
             </ul>
           </li>
           <li>

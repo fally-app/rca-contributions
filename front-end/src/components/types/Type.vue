@@ -1,39 +1,34 @@
 <template>
-  <div v-if="currentMember" class="edit-form py-3">
-    <p class="headline">Edit Member</p>
+  <div v-if="currentType" class="edit-form py-3">
+    <p class="headline">Edit Type</p>
 
     <v-form ref="form" lazy-validation>
       <v-text-field
-        v-model="currentMember.fname"
-        :rules="[(v) => !!v || 'First name is required']"
-        label="First name"
+        v-model="currentType.title"
+        :rules="[(v) => !!v || 'Title is required']"
+        label="Title"
         required
       ></v-text-field>
 
       <v-text-field
-        v-model="currentMember.lname"
-        :rules="[(v) => !!v || 'Last name is required']"
-        label="Last name"
+        v-model="currentType.description"
+        :rules="[(v) => !!v || 'Description is required']"
+        label="Description"
         required
       ></v-text-field>
 
       <!-- <v-text-field
-        v-model="currentMember.gender"
+        v-model="currentType.gender"
         :rules="[(v) => !!v || 'Gender is required']"
         label="Gender"
         required
       ></v-text-field> -->
-      <v-select
-        v-model="currentMember.gender"
-        :items="selects"
-        label="Gender"
-      ></v-select>
 
       <!-- <label><strong>Status:</strong></label>
       {{ currentTutorial.published ? "Published" : "Pending" }} -->
 
       <v-divider class="my-5"></v-divider>
-<!-- 
+      <!-- 
       <v-btn
         v-if="currentTutorial.published"
         @click="updatePublished(false)"
@@ -54,13 +49,11 @@
         Publish
       </v-btn> -->
 
-      <v-btn color="error" small class="mr-2" @click="deleteMember">
+      <v-btn color="error" small class="mr-2" @click="deleteType">
         Delete
       </v-btn>
 
-      <v-btn color="success" small @click="updateMember">
-        Update
-      </v-btn>
+      <v-btn color="success" small @click="updateType"> Update </v-btn>
     </v-form>
 
     <p class="mt-3">{{ message }}</p>
@@ -72,22 +65,21 @@
 </template>
 
 <script>
-import MemberDataService from "../../services/MemberDataService";
+import TypeDataService from "../../services/TypeDataService";
 
 export default {
-  name: "member",
+  name: "type",
   data() {
     return {
-      currentMember: null,
+      currentType: null,
       message: "",
-      selects: ['Male','Female']
     };
   },
   methods: {
-    getMember(id) {
-      MemberDataService.get(id)
+    getType(id) {
+      TypeDataService.get(id)
         .then((response) => {
-          this.currentMember = response.data;
+          this.currentType = response.data;
           console.log(response.data);
         })
         .catch((e) => {
@@ -97,13 +89,13 @@ export default {
 
     // updatePublished(status) {
     //   var data = {
-    //     id: this.currentMember.id,
-    //     title: this.currentMember.title,
-    //     description: this.currentMember.description,
+    //     id: this.currentType.id,
+    //     title: this.currentType.title,
+    //     description: this.currentType.description,
     //     published: status,
     //   };
 
-    //   MemberDataService.update(this.currentTutorial.id, data)
+    //   TypeDataService.update(this.currentTutorial.id, data)
     //     .then((response) => {
     //       this.currentTutorial.published = status;
     //       console.log(response.data);
@@ -113,22 +105,25 @@ export default {
     //     });
     // },
 
-    updateMember() {
-      MemberDataService.update(this.currentMember._id, {"fname":this.currentMember.fname,"lname":this.currentMember.lname,"gender":this.currentMember.gender})
+    updateType() {
+      TypeDataService.update(this.currentType._id, {
+        title: this.currentType.title,
+        simple_description: this.currentType.description,
+      })
         .then((response) => {
           console.log(response.data);
-          this.message = "The Member was updated successfully!";
+          this.message = "The Type was updated successfully!";
         })
         .catch((e) => {
           console.log(e);
         });
     },
 
-    deleteMember() {
-      MemberDataService.delete(this.currentMember._id)
+    deleteType() {
+      TypeDataService.delete(this.currentType._id)
         .then((response) => {
           console.log(response.data);
-          this.$router.push({ name: "members" });
+          this.$router.push({ name: "types" });
         })
         .catch((e) => {
           console.log(e);
@@ -137,7 +132,7 @@ export default {
   },
   mounted() {
     this.message = "";
-    this.getMember(this.$route.params.id);
+    this.getType(this.$route.params.id);
   },
 };
 </script>
