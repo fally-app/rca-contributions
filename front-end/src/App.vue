@@ -47,8 +47,12 @@
               >Contributions</a
             >
             <ul class="collapse list-unstyled" id="contSubmenu">
-              <li><a href="#">Contributions List</a></li>
-              <li><a href="#">Add Contribution</a></li>
+              <router-link to="/contributions"
+                ><li>Contributions List</li></router-link
+              >
+              <router-link to="/addcontribution"
+                ><li>Add Contribution</li></router-link
+              >
               <li><a href="#">Edit Contribution</a></li>
             </ul>
           </li>

@@ -62,12 +62,12 @@ export default {
       search: "",
       headers: [
         {
-          text: "member_id",
+          text: "Name",
           align: "start",
           sortable: true,
           value: "member_id",
         },
-        { text: "c_type_id", value: "c_type_id", sortable: true },
+        { text: "Type", value: "c_type_id", sortable: true },
         { text: "createdAt", value: "createdAt", sortable: true },
         { text: "Amount", value: "amount", sortable: true },
         { text: "Actions", value: "actions", sortable: false },
@@ -78,8 +78,7 @@ export default {
     retrieveContributions() {
       ContributionDataService.getAll()
         .then((response) => {
-          console.log(ContributionDataService.idToPrimary(response.data));
-          //this.contributions = response.data.map(this.getDisplayContribution);
+          this.contributions = response.data.map(this.getDisplayContribution);
         })
         .catch((e) => {
           console.log(e);
@@ -130,13 +129,13 @@ export default {
       return {
         id: contribution._id,
         member_id:
-          contribution.member_id.length > 30
-            ? contribution.member_id.substr(0, 30) + "..."
-            : contribution.member_id,
+          contribution.member.fname.length > 30
+            ? contribution.member.fname.substr(0, 30) + "..."
+            : contribution.member.fname,
         c_type_id:
-          contribution.c_type_id.length > 30
-            ? contribution.c_type_id.substr(0, 30) + "..."
-            : contribution.c_type_id,
+          contribution.types.title.length > 30
+            ? contribution.types.title.substr(0, 30) + "..."
+            : contribution.types.title,
 
         amount:
           contribution.amount.length > 30
@@ -144,8 +143,8 @@ export default {
             : contribution.amount,
 
         createdAt:
-          contribution.createdAt.length > 30
-            ? contribution.createdAt.substr(0, 30) + "..."
+          contribution.createdAt.length > 10
+            ? contribution.createdAt.substr(0, 10)
             : contribution.createdAt,
       };
     },

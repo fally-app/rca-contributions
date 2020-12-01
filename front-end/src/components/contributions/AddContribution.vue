@@ -23,26 +23,50 @@
           label="Amount"
           required
         ></v-text-field>
-<!-- 
-         <v-select
-        v-model="contribution.gender"
-        :items="selects"
-        label="Gender"
-      ></v-select> -->
+
+        <v-menu
+          v-model="fromDateMenu"
+          :close-on-content-click="false"
+          :nudge-right="40"
+          transition="scale-transition"
+          offset-y
+          max-width="290px"
+          min-width="290px"
+        >
+          <template v-slot:activator="{ on }">
+            <v-text-field
+              label="Date"
+              readonly
+              :value="fromDateDisp"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            locale="en-in"
+            v-model="fromDateVal"
+            no-title
+            @input="fromDateMenu = false"
+            :min="minDate"
+          ></v-date-picker>
+        </v-menu>
+
+        <v-select
+          v-model="contribution.member_id"
+          :items="members"
+          label="Member"
+        ></v-select>
       </v-form>
 
-      <v-btn color="primary" class="mt-3" @click="saveContribution">Submit</v-btn>
+      <v-btn color="primary" class="mt-3" @click="saveContribution"
+        >Submit</v-btn
+      >
     </div>
 
     <div v-else>
       <v-card class="mx-auto">
-        <v-card-title>
-          Submitted successfully!
-        </v-card-title>
+        <v-card-title> Submitted successfully! </v-card-title>
 
-        <v-card-subtitle>
-          Click the button to add new member.
-        </v-card-subtitle>
+        <v-card-subtitle> Click the button to add new member. </v-card-subtitle>
 
         <v-card-actions>
           <v-btn color="success" @click="newContribution">Add</v-btn>
@@ -54,6 +78,7 @@
 
 <script>
 import ContributionDataService from "../../services/ContributionDataService";
+import MemberDataService from "../../services/MemberDataService";
 
 export default {
   name: "add-contribution",
@@ -65,8 +90,19 @@ export default {
         c_type_id: "",
         amount: "",
       },
+      members: [],
       submitted: false,
+      fromDateMenu: false,
+      fromDateVal: null,
+      minDate: "2020-01-05",
+      maxDate: "2019-08-30",
     };
+  },
+  computed: {
+    fromDateDisp() {
+      return this.fromDateVal;
+      // format/do something with date
+    },
   },
   methods: {
     saveContribution() {
@@ -91,6 +127,21 @@ export default {
       this.submitted = false;
       this.contribution = {};
     },
+    retrieveMembers() {
+      MemberDataService.getAll()
+        .then((response) => {
+          const returns = response.data;
+          returns.forEach((element) => {
+            this.members.push(element.fname);
+          });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    },
+  },
+  mounted() {
+    this.retrieveMembers();
   },
 };
 </script>
