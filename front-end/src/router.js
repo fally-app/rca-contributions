@@ -52,10 +52,10 @@ export default new Router({
       name: "type_details",
       component: () => import("./components/types/Type"),
     },
-    // {
-    //   path: "/edittype",
-    //   name: "edittype",
-    //   component: () => import("./components/types/Type"),
-    // },
+    {
+      path: "/report",
+      name: "report",
+      component: () => import("./components/reports/Report"),
+    },
   ],
 });
