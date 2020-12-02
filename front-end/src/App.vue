@@ -22,7 +22,7 @@
           <p>Contributions manager</p>
           <li>
             <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false"
-              >Home</a
+              >Members</a
             >
             <ul class="collapse list-unstyled" id="homeSubmenu">
               <router-link to="/members"><li>Members List</li></router-link>

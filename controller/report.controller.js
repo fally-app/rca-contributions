@@ -7,8 +7,8 @@ exports.getOverall = async (req, res) => {
   contributions.forEach((element) => {
     amount = amount + element.amount;
   });
-  //   let contributors = 0;
   let contributors = [];
+
   contributions.forEach((element) => {
     if (!contributors.includes(element.member_id.toString())) {
       contributors.push(element.member_id.toString());
