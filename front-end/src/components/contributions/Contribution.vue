@@ -3,19 +3,6 @@
     <p class="headline">Edit Contribution</p>
 
     <v-form ref="form" lazy-validation>
-      <!-- <v-text-field
-        v-model="currentContribution.member.lname"
-        :rules="[(v) => !!v || 'Member Id is required']"
-        label="Member Id"
-        required
-      ></v-text-field>
-
-      <v-text-field
-        v-model="currentContribution.types.title"
-        :rules="[(v) => !!v || 'Type is required']"
-        label="Type"
-        required
-      ></v-text-field> -->
       <v-text-field
         v-model="currentContribution.amount"
         :rules="[(v) => !!v || 'Amount is required']"
