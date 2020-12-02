@@ -13,17 +13,15 @@
             hide-details
           ></v-text-field>
         </v-card-title>
-        <v-data-table :headers="headers" :items="members" :search="search">
+        <v-data-table :headers="headers" :items="reports" :search="search">
           <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2" @click="editMember(item.id)"
-              >mdi-pencil</v-icon
-            >
-            <v-icon small @click="deleteMember(item.id)">mdi-delete</v-icon>
+            <v-icon small class="mr-2">mdi-pencil</v-icon>
+            <v-icon small @click="deleteReport(item.id)">mdi-delete</v-icon>
           </template>
         </v-data-table>
 
-        <v-card-actions v-if="members.length > 0">
-          <v-btn small color="error" @click="removeAllMembers">
+        <v-card-actions v-if="reports.length > 0">
+          <v-btn small color="error" @click="removeAllReports">
             Remove All
           </v-btn>
         </v-card-actions>
@@ -33,27 +31,27 @@
 </template>
 
 <script>
-import MemberDataService from "../../services/MemberDataService";
+import ReportDataService from "../../services/ReportDataService";
 export default {
-  name: "members-list",
+  name: "reports",
   data() {
     return {
-      members: [],
-      fname: "",
+      reports: [],
+      rows: "",
       search: "",
       headers: [
-        { text: "Fname", align: "start", sortable: true, value: "fname" },
-        { text: "Lname", value: "lname", sortable: true },
-        { text: "Gender", value: "gender", sortable: false },
+        { text: "Number", align: "start", sortable: true, value: "rows" },
+        { text: "Amount", value: "amount", sortable: true },
+        { text: "Contributors", value: "contributors", sortable: false },
         { text: "Actions", value: "actions", sortable: false },
       ],
     };
   },
   methods: {
-    retrieveMembers() {
-      MemberDataService.getAll()
+    retrieveReports() {
+      ReportDataService.getAll()
         .then((response) => {
-          this.members = response.data.map(this.getDisplayMember);
+          this.reports = response.data.map(this.getDisplayReport);
           console.log(response.data);
         })
         .catch((e) => {
@@ -62,11 +60,11 @@ export default {
     },
 
     refreshList() {
-      this.retrieveMembers();
+      this.retrieveReports();
     },
 
-    removeAllMembers() {
-      MemberDataService.deleteAll()
+    removeAllReports() {
+      ReportDataService.deleteAll()
         .then((response) => {
           console.log(response.data);
           this.refreshList();
@@ -76,23 +74,8 @@ export default {
         });
     },
 
-    searchName() {
-      MemberDataService.findByName(this.fname)
-        .then((response) => {
-          this.members = response.data.map(this.getDisplayMember);
-          console.log(response.data);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    },
-
-    editMember(id) {
-      this.$router.push({ name: "member-details", params: { id: id } });
-    },
-
-    deleteMember(id) {
-      MemberDataService.delete(id)
+    deleteReport(id) {
+      ReportDataService.delete(id)
         .then(() => {
           this.refreshList();
         })
@@ -101,27 +84,27 @@ export default {
         });
     },
 
-    getDisplayMember(member) {
+    getDisplayReport(report) {
       return {
-        id: member._id,
-        fname:
-          member.fname.length > 30
-            ? member.fname.substr(0, 30) + "..."
-            : member.fname,
-        lname:
-          member.lname.length > 30
-            ? member.lname.substr(0, 30) + "..."
-            : member.lname,
+        id: report._id,
+        amount:
+          report.fname.length > 30
+            ? report.fname.substr(0, 30) + "..."
+            : report.fname,
+        contributors:
+          report.lname.length > 30
+            ? report.lname.substr(0, 30) + "..."
+            : report.lname,
 
-        gender:
-          member.gender.length > 30
-            ? member.gender.substr(0, 30) + "..."
-            : member.gender,
+        rows:
+          report.gender.length > 30
+            ? report.gender.substr(0, 30) + "..."
+            : report.gender,
       };
     },
   },
   mounted() {
-    this.retrieveMembers();
+    this.retrieveReports();
   },
 };
 </script>
