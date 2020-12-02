@@ -133,9 +133,9 @@ export default {
             ? contribution.member.fname.substr(0, 30) + "..."
             : contribution.member.fname,
         c_type_id:
-          contribution.types.title.length > 30
-            ? contribution.types.title.substr(0, 30) + "..."
-            : contribution.types.title,
+          contribution.types?.title?.length > 30
+            ? contribution.types?.title?.substr(0, 30) + "..."
+            : contribution.types?.title,
 
         amount:
           contribution.amount.length > 30

@@ -46,6 +46,7 @@ exports.create = async (req, res) => {
 // Retrieve and return all c_type from the database.
 exports.findAll = (req, res) => {
   C_Types.find()
+    .populate("contributions")
     .then((c_types) => {
       res.send(c_types);
     })

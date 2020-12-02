@@ -1,30 +1,30 @@
 <template>
   <div v-if="report" class="edit-form py-3">
-    <p class="headline">Overall Report</p>
+    <div v-if="reports">
+      <p class="headline">Overall Report</p>
 
-    <v-form ref="form" lazy-validation>
-      <v-text-field
-        v-model="report.rows"
-        label="Number of Contributions"
-        required
-      ></v-text-field>
+      <v-form ref="form" lazy-validation>
+        <v-text-field
+          v-model="report.rows"
+          label="Number of Contributions"
+          required
+        ></v-text-field>
 
-      <v-text-field
-        v-model="report.contributors"
-        label="Contributors"
-        required
-      ></v-text-field>
+        <v-text-field
+          v-model="report.contributors"
+          label="Contributors"
+          required
+        ></v-text-field>
 
-      <v-text-field
-        v-model="report.amount"
-        label="Amount"
-        required
-      ></v-text-field>
+        <v-text-field
+          v-model="report.amount"
+          label="Amount"
+          required
+        ></v-text-field>
 
-      <v-divider class="my-5"></v-divider>
-    </v-form>
-
-    <p class="mt-3">{{ message }}</p>
+        <v-divider class="my-5"></v-divider>
+      </v-form>
+    </div>
   </div>
 
   <div v-else>
@@ -34,10 +34,12 @@
 
 <script>
 import ReportDataService from "../../services/ReportDataService";
+import TypeDataService from "../../services/TypeDataService";
 export default {
   data() {
     return {
       report: null,
+      reports: null,
     };
   },
   methods: {
@@ -45,7 +47,6 @@ export default {
       ReportDataService.getAll()
         .then((response) => {
           this.report = response.data;
-          console.log(response.data);
         })
         .catch((e) => {
           console.log(e);
@@ -61,9 +62,14 @@ export default {
           console.log(e);
         });
     },
+    async getTypesWithContribution() {
+      let types = await TypeDataService.getAll();
+      this.reports = types.data;
+    },
   },
   mounted() {
     this.getReport();
+    this.getTypesWithContribution();
     console.log("hey this is report");
   },
 };

@@ -3,12 +3,6 @@ const Schema = mongoose.Schema;
 const Types = Schema.Types;
 const Contribution_schema = new Schema(
   {
-    // member_id: [
-    //   {
-    //     type: Types.ObjectId,
-    //     ref: "Member",
-    //   },
-    // ],
     member_id: {
       type: Types.ObjectId,
       ref: "Member",
