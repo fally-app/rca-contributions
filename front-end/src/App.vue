@@ -59,7 +59,7 @@
             </ul>
           </li>
           <li>
-            <a href="#">Report</a>
+            <router-link to="/reports"><li>Report</li></router-link>
           </li>
           <li>
             <a href="#">Contact</a>

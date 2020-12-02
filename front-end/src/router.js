@@ -53,7 +53,7 @@ export default new Router({
       component: () => import("./components/types/Type"),
     },
     {
-      path: "/report",
+      path: "/reports",
       name: "report",
       component: () => import("./components/reports/Report"),
     },

@@ -5,26 +5,35 @@
         <v-card-title>
           Overall Report
           <v-spacer></v-spacer>
-          <v-text-field
-            v-model="search"
-            append-icon="mdi-magnify"
-            label="Search"
-            single-line
-            hide-details
-          ></v-text-field>
         </v-card-title>
-        <v-data-table :headers="headers" :items="reports" :search="search">
-          <template v-slot:[`item.actions`]="{ item }">
-            <v-icon small class="mr-2">mdi-pencil</v-icon>
-            <v-icon small @click="deleteReport(item.id)">mdi-delete</v-icon>
-          </template>
-        </v-data-table>
+        <v-form ref="form" lazy-validation>
+          <v-text-field
+            v-model="report.rows"
+            :rules="[(v) => !!v || 'First name is required']"
+            label="Rows"
+            required
+          ></v-text-field>
 
-        <v-card-actions v-if="reports.length > 0">
-          <v-btn small color="error" @click="removeAllReports">
-            Remove All
+          <v-text-field
+            v-model="report.contributors"
+            :rules="[(v) => !!v || 'Last name is required']"
+            label="Contributors"
+            required
+          ></v-text-field>
+
+          <v-text-field
+            v-model="report.amount"
+            :rules="[(v) => !!v || 'Last name is required']"
+            label="Amount"
+            required
+          ></v-text-field>
+
+          <v-divider class="my-5"></v-divider>
+
+          <v-btn color="error" small class="mr-2" @click="deleteReport">
+            Delete
           </v-btn>
-        </v-card-actions>
+        </v-form>
       </v-card>
     </v-col>
   </v-row>
@@ -33,41 +42,17 @@
 <script>
 import ReportDataService from "../../services/ReportDataService";
 export default {
-  name: "reports",
   data() {
     return {
-      reports: [],
-      rows: "",
-      search: "",
-      headers: [
-        { text: "Number", align: "start", sortable: true, value: "rows" },
-        { text: "Amount", value: "amount", sortable: true },
-        { text: "Contributors", value: "contributors", sortable: false },
-        { text: "Actions", value: "actions", sortable: false },
-      ],
+      report: null,
     };
   },
   methods: {
-    retrieveReports() {
+    getReport() {
       ReportDataService.getAll()
         .then((response) => {
-          this.reports = response.data.map(this.getDisplayReport);
+          this.report = response.data;
           console.log(response.data);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    },
-
-    refreshList() {
-      this.retrieveReports();
-    },
-
-    removeAllReports() {
-      ReportDataService.deleteAll()
-        .then((response) => {
-          console.log(response.data);
-          this.refreshList();
         })
         .catch((e) => {
           console.log(e);
@@ -83,28 +68,10 @@ export default {
           console.log(e);
         });
     },
-
-    getDisplayReport(report) {
-      return {
-        id: report._id,
-        amount:
-          report.fname.length > 30
-            ? report.fname.substr(0, 30) + "..."
-            : report.fname,
-        contributors:
-          report.lname.length > 30
-            ? report.lname.substr(0, 30) + "..."
-            : report.lname,
-
-        rows:
-          report.gender.length > 30
-            ? report.gender.substr(0, 30) + "..."
-            : report.gender,
-      };
-    },
   },
   mounted() {
-    this.retrieveReports();
+    this.getReport();
+    console.log("hey this is report");
   },
 };
 </script>
