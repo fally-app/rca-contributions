@@ -11,7 +11,7 @@
       ></v-text-field>
 
       <v-text-field
-        v-model="currentType.description"
+        v-model="currentType.simple_description"
         :rules="[(v) => !!v || 'Description is required']"
         label="Description"
         required
@@ -108,7 +108,7 @@ export default {
     updateType() {
       TypeDataService.update(this.currentType._id, {
         title: this.currentType.title,
-        simple_description: this.currentType.description,
+        simple_description: this.currentType.simple_description,
       })
         .then((response) => {
           console.log(response.data);
