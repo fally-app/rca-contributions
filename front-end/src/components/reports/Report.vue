@@ -1,34 +1,36 @@
 <template>
-  <div v-if="report" class="edit-form py-3">
+  <div>
+    <p class="headline">Overall Report</p>
     <div v-if="reports">
-      <p class="headline">Overall Report</p>
+      <div v-for="name in reports" class="edit-form py-3" v-bind:key="name._id">
+        <p>{{ name.title }}</p>
+        <v-form ref="form" lazy-validation>
+          <v-text-field
+            v-model="name.contributions.length"
+            label="Number of Contributions"
+            required
+          ></v-text-field>
 
-      <v-form ref="form" lazy-validation>
-        <v-text-field
-          v-model="report.rows"
-          label="Number of Contributions"
-          required
-        ></v-text-field>
+          <v-text-field
+            v-model="report.contributors"
+            label="Contributors"
+            required
+          ></v-text-field>
 
-        <v-text-field
-          v-model="report.contributors"
-          label="Contributors"
-          required
-        ></v-text-field>
+          <v-text-field
+            v-model="report.amount"
+            label="Amount"
+            required
+          ></v-text-field>
+          <p>{{ getAmount(name.contributions) }}</p>
 
-        <v-text-field
-          v-model="report.amount"
-          label="Amount"
-          required
-        ></v-text-field>
-
-        <v-divider class="my-5"></v-divider>
-      </v-form>
+          <v-divider class="my-5"></v-divider>
+        </v-form>
+      </div>
     </div>
-  </div>
-
-  <div v-else>
-    <p>No report</p>
+    <div v-else>
+      <p>No report</p>
+    </div>
   </div>
 </template>
 
@@ -62,15 +64,22 @@ export default {
           console.log(e);
         });
     },
+    getAmount(arr) {
+      let amount = 0;
+      arr.forEach((element) => {
+        amount += element.amount;
+      });
+      return amount;
+    },
     async getTypesWithContribution() {
       let types = await TypeDataService.getAll();
       this.reports = types.data;
+      console.log(types.data);
     },
   },
   mounted() {
     this.getReport();
     this.getTypesWithContribution();
-    console.log("hey this is report");
   },
 };
 </script>
