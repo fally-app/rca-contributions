@@ -47,5 +47,5 @@ app.get("/", (req, res) => {
 // listen for requests
 dotenv.config();
 app.listen(process.env.PORT || 2500, () => {
-  console.log(`\nServer started at http://localhost:${process.env.PORT}`);
+  console.log(`\nServer started at http://localhost:${process.env.PORT || 2500}`);
 });
