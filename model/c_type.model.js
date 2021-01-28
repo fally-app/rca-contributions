@@ -14,16 +14,6 @@ const TypeSchema = new Schema(
   },
   {
     timestamps: true,
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
   }
 );
-
-TypeSchema.virtual("contributions", {
-  ref: "Contribution",
-  localField: "_id",
-  foreignField: "c_type_id",
-  justOne: false,
-});
-
 module.exports = mongoose.model("C_Type", TypeSchema, "c_types");
