@@ -10,8 +10,8 @@ exports.getOverall = async (req, res) => {
   let contributors = [];
 
   contributions.forEach((element) => {
-    if (!contributors.includes(element.member_id.toString())) {
-      contributors.push(element.member_id.toString());
+    if (!contributors.includes(element.member.toString())) {
+      contributors.push(element.member.toString());
     }
   });
   res
@@ -32,8 +32,8 @@ exports.getOverallGivenDate = async (req, res) => {
   });
   let contributors = [];
   contributions.forEach((element) => {
-    if (!contributors.includes(element.member_id.toString())) {
-      contributors.push(element.member_id.toString());
+    if (!contributors.includes(element.member.toString())) {
+      contributors.push(element.member.toString());
     }
   });
   res
