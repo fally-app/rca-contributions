@@ -1,13 +1,13 @@
 const Contributions = require("../model/contribution.model");
 const Joi = require("joi");
-const contributionModel = require("../model/contribution.model");
-const { Mongoose } = require("mongoose");
+Joi.ObjectId = require("joi-objectid")(Joi);
 
 // validator
 const schema = Joi.object().keys({
-  member_id: Joi.string().min(24).max(24).required(),
-  c_type_id: Joi.string().min(24).max(24).required(),
+  member: Joi.ObjectId().required(),
+  c_type: Joi.ObjectId().required(),
   amount: Joi.number().required(),
+  date: Joi.date() || new Date(n),
 });
 /**
  * Create and Save a new contibutions
@@ -22,11 +22,7 @@ exports.create = async (req, res) => {
       message: validator.error.details[0].message,
     });
 
-  const create_one = new Contributions({
-    member_id: req.body.member_id,
-    c_type_id: req.body.c_type_id,
-    amount: req.body.amount,
-  });
+  const create_one = new Contributions(req.body);
 
   create_one
     .save()
