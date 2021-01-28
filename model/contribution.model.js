@@ -3,13 +3,15 @@ const Schema = mongoose.Schema;
 const Types = Schema.Types;
 const Contribution_schema = new Schema(
   {
-    member_id: {
+    member: {
       type: Types.ObjectId,
       ref: "Member",
+      required: true
     },
-    c_type_id: {
+    c_type: {
       type: Types.ObjectId,
       ref: "C_Type",
+      required: true
     },
     amount: {
       type: Number,
@@ -18,23 +20,9 @@ const Contribution_schema = new Schema(
   },
   {
     timestamps: true,
-    toJSON: { virtuals: true },
-    toObject: { virtuals: true },
   }
 );
 
-Contribution_schema.virtual("member", {
-  ref: "Member",
-  localField: "member_id",
-  foreignField: "_id",
-  justOne: true,
-});
-Contribution_schema.virtual("types", {
-  ref: "C_Type",
-  localField: "c_type_id",
-  foreignField: "_id",
-  justOne: true,
-});
 module.exports = mongoose.model(
   "Contribution",
   Contribution_schema,
