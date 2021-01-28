@@ -7,7 +7,7 @@ const schema = Joi.object().keys({
   member: Joi.ObjectId().required(),
   c_type: Joi.ObjectId().required(),
   amount: Joi.number().required(),
-  date: Joi.date() || new Date(n),
+  date: Joi.date() || new Date(),
 });
 /**
  * Create and Save a new contibutions
