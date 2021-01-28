@@ -1,3 +1,4 @@
+const { date } = require("joi");
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const Types = Schema.Types;
@@ -17,14 +18,14 @@ const Contribution_schema = new Schema(
       type: Number,
       required: true,
     },
+    date:{
+      type: Date,
+      required: true
+    }
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = mongoose.model(
-  "Contribution",
-  Contribution_schema,
-  "contributions"
-);
+module.exports = mongoose.model("Contribution",Contribution_schema);
