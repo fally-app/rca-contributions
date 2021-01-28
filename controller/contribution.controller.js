@@ -41,7 +41,7 @@ exports.create = async (req, res) => {
 exports.findAll = (req, res) => {
   Contributions.find()
     .populate("member")
-    .populate("types")
+    .populate("c_type")
     .then((contibutions) => {
       res.send(contibutions);
     })
@@ -57,7 +57,7 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   Contributions.findById(req.params.id)
     .populate("member")
-    .populate("types")
+    .populate("c_type")
     .then((contibution) => {
       if (!contibution) {
         return res.status(404).send({
