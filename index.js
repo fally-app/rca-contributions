@@ -22,6 +22,7 @@ require("./routes/report.router.js")(app);
 const dbConfig = require("./mongodb/index.js");
 const mongoose = require("mongoose");
 
+dotenv.config();
 mongoose.Promise = global.Promise;
 
 // Connecting to the database
@@ -32,7 +33,12 @@ mongoose
     useFindAndModify: false,
   })
   .then(() => {
-    console.log("Successfully connected to the database\n");
+    console.log("Successfully connected to the database");
+    // listen for requests
+app.listen(process.env.PORT || 1500, () => {
+  console.log(`Server started at http://localhost:${process.env.PORT || 1500}`);
+});
+
   })
   .catch((err) => {
     console.log("Could not connect to the database. Exiting now...", err);
@@ -44,8 +50,3 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to Members system" });
 });
 
-// listen for requests
-dotenv.config();
-app.listen(process.env.PORT || 1500, () => {
-  console.log(`\nServer started at http://localhost:${process.env.PORT || 1500}`);
-});
