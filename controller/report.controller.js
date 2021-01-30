@@ -20,6 +20,7 @@ exports.getOverall = async (req, res) => {
     contributions.forEach(el => {
       if(element._id =el.c_type){
         element.amount = element.amount || 0 +el.amount;
+        element.nContributors = element.nContributors || 0 + 1; 
       }
     });
   });
