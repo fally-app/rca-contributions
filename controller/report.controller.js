@@ -1,5 +1,6 @@
 const Contributions = require("../model/contribution.model");
 const Types = require("../model/c_type.model");
+const Users = require("../model/user.model");
 exports.getOverall = async (req, res) => {
   const rows = await Contributions.countDocuments({});
   const contributions = await Contributions.find();
@@ -15,16 +16,26 @@ exports.getOverall = async (req, res) => {
     }
   });
   let conts  = [];
+  let memberCheck = [];
   let types = await Types.find();
   for (let index = 0; index < types.length; index++) {
     const contributions = await Contributions.find({c_type: types[index]._id});
     let sum = 0;
     let members = 0;
+    let users = [];
     for (let looper = 0; looper < contributions.length; looper++) {
       sum = sum+contributions[looper].amount;
       members++;
+      if(!memberCheck.includes(contributions[looper].member)){
+        memberCheck.push(contributions[looper].member)
+        const memberdata = await Users.findOne({_id: contributions[looper].member});
+        if(memberdata){
+          users.push(memberdata);
+        }
+      }
+      // console.log(contributions);
     }
-    conts.push({type: types[index],sum: sum,members: members});
+    conts.push({type: types[index],sum: sum,members: members,users: users});
   }
   res
     .send({ conts: conts,rows: rows, amount: amount, contributors: contributors.length })
