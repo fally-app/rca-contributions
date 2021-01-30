@@ -28,10 +28,8 @@ exports.getOverall = async (req, res) => {
       members++;
       if(!memberCheck.includes(contributions[looper].member)){
         memberCheck.push(contributions[looper].member)
-        const memberdata = await Users.findOne({_id: contributions[looper].member});
+        let memberdata = await Users.findOne({_id: contributions[looper].member});
         if(memberdata){
-          const personalContribution = await Contributions.find();
-          memberdata.contributions = personalContribution;
           users.push(memberdata);
         }
       }
