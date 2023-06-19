@@ -25,7 +25,7 @@
     "express": "4.17.1",
     "joi": "^17.3.0",
     "joi-objectid": "^4.0.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "mongoose": "6.0.12"
   },
   "devDependencies": {
